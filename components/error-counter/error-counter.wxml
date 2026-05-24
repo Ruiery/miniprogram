@@ -1,0 +1,4 @@
+<view class="error-counter {{danger ? 'error-danger' : ''}}">
+  <text class="error-icon">❌</text>
+  <text class="error-text">{{errors}}/{{maxErrors}}</text>
+</view>

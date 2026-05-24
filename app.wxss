@@ -1,0 +1,41 @@
+/* 全局样式 */
+page {
+  background-color: #FFF5E6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: #333;
+}
+
+/* 通用 flex 布局 */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 通用按钮样式 */
+.btn-primary {
+  background: linear-gradient(135deg, #D4A574, #8B4513);
+  color: #fff;
+  border-radius: 40rpx;
+  padding: 20rpx 60rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #8B4513;
+  border: 2rpx solid #D4A574;
+  border-radius: 40rpx;
+  padding: 18rpx 50rpx;
+  font-size: 28rpx;
+  text-align: center;
+}

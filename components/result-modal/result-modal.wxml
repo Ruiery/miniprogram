@@ -1,0 +1,61 @@
+<!-- result-modal 结算弹窗 -->
+<view class="modal-mask {{visible ? 'show' : ''}}" catchtouchmove="preventMove">
+  <view class="modal-content {{visible ? 'slide-in' : ''}}">
+
+    <!-- 胜利状态 -->
+    <block wx:if="{{status === 'win'}}">
+      <view class="result-icon win-icon">✨</view>
+      <text class="result-title win-title">过关啦！</text>
+      <text class="result-level">{{levelName}}</text>
+      <view class="result-stats">
+        <view class="stat-row">
+          <text class="stat-label">用时</text>
+          <text class="stat-value">{{timeDisplay}}</text>
+        </view>
+        <view class="stat-row">
+          <text class="stat-label">错误</text>
+          <text class="stat-value">{{errorsUsed}}/{{maxErrors}}</text>
+        </view>
+      </view>
+      <view class="modal-actions">
+        <button class="btn btn-primary" bindtap="onNext">下一关 →</button>
+        <button class="btn btn-secondary" bindtap="onRetry">重玩本关</button>
+      </view>
+    </block>
+
+    <!-- 失败 - 超时 -->
+    <block wx:elif="{{status === 'timeout'}}">
+      <view class="result-icon fail-icon">⏰</view>
+      <text class="result-title fail-title">时间耗尽</text>
+      <text class="result-subtitle">再快一点就能完成啦</text>
+      <view class="result-stats">
+        <view class="stat-row">
+          <text class="stat-label">已完成</text>
+          <text class="stat-value">{{matchedCount}}/{{totalZones}}</text>
+        </view>
+      </view>
+      <view class="modal-actions">
+        <button class="btn btn-primary" bindtap="onRetry">重新挑战</button>
+        <button class="btn btn-secondary" bindtap="onBack">返回选关</button>
+      </view>
+    </block>
+
+    <!-- 失败 - 错误超限 -->
+    <block wx:elif="{{status === 'error'}}">
+      <view class="result-icon fail-icon">💔</view>
+      <text class="result-title fail-title">再接再厉！</text>
+      <text class="result-subtitle">错误次数过多，仔细看看再试吧</text>
+      <view class="result-stats">
+        <view class="stat-row">
+          <text class="stat-label">错误</text>
+          <text class="stat-value error-value">{{errorsUsed}}/{{maxErrors}}</text>
+        </view>
+      </view>
+      <view class="modal-actions">
+        <button class="btn btn-primary" bindtap="onRetry">重新挑战</button>
+        <button class="btn btn-secondary" bindtap="onBack">返回选关</button>
+      </view>
+    </block>
+
+  </view>
+</view>

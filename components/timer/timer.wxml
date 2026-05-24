@@ -1,0 +1,4 @@
+<view class="timer {{warning ? 'timer-warning' : ''}}">
+  <text class="timer-icon">⏱</text>
+  <text class="timer-text">{{displayTime}}</text>
+</view>

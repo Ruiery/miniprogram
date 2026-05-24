@@ -1,0 +1,108 @@
+.container {
+  min-height: 100vh;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 12rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #A0522D;
+}
+
+/* 关卡网格 */
+.level-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24rpx;
+  justify-content: center;
+}
+
+.level-card {
+  width: 210rpx;
+  height: 240rpx;
+  background: linear-gradient(145deg, #FFF8F0, #FFE8D0);
+  border-radius: 20rpx;
+  border: 3rpx solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(139, 69, 19, 0.15);
+  transition: transform 0.2s;
+}
+
+.level-card:active {
+  transform: scale(0.96);
+}
+
+/* 当前可玩 - 高亮 */
+.level-card.current {
+  border-color: #D4A574;
+  background: linear-gradient(145deg, #FFFAF5, #FFECD0);
+  box-shadow: 0 6rpx 24rpx rgba(212, 165, 116, 0.35);
+}
+
+/* 已通关 */
+.level-card.completed {
+  background: linear-gradient(145deg, #F0FFF0, #E0FFE0);
+  border-color: #90C090;
+}
+
+/* 未锁定 - 灰色 */
+.level-card.locked {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.card-lock {
+  font-size: 56rpx;
+  margin-bottom: 10rpx;
+}
+
+.card-star {
+  font-size: 48rpx;
+  margin-bottom: 6rpx;
+}
+
+.card-num {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 8rpx;
+}
+
+.card-name {
+  font-size: 26rpx;
+  color: #5C3317;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180rpx;
+}
+
+.card-hint {
+  font-size: 22rpx;
+  color: #D4A574;
+  margin-top: 4rpx;
+}
+
+.card-record {
+  font-size: 20rpx;
+  color: #6B8E23;
+  margin-top: 4rpx;
+}

@@ -1,0 +1,40 @@
+.error-counter {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 10rpx 28rpx;
+  background: linear-gradient(135deg, #FFF8F0, #FFE8D0);
+  border-radius: 40rpx;
+  border: 2rpx solid #E8D4BC;
+}
+
+.error-icon {
+  font-size: 28rpx;
+}
+
+.error-text {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #5C3317;
+  font-variant-numeric: tabular-nums;
+  min-width: 80rpx;
+}
+
+/* 危险状态（错误数 >= 4，快超限） */
+.error-danger {
+  border-color: #CD5C5C;
+  background: linear-gradient(135deg, #FFF5F5, #FFE8E8);
+  animation: errorShake 0.3s ease-out;
+}
+
+.error-danger .error-text {
+  color: #CD5C5C;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6rpx); }
+  40% { transform: translateX(6rpx); }
+  60% { transform: translateX(-4rpx); }
+  80% { transform: translateX(4rpx); }
+}

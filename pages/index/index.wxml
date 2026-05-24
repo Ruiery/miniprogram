@@ -1,0 +1,38 @@
+<view class="container">
+  <!-- 标题区 -->
+  <view class="header">
+    <text class="title">🏮 娘娘爱拼图</text>
+    <text class="subtitle">选择正确的饰品，完成古风美人装扮</text>
+  </view>
+
+  <!-- 关卡列表 -->
+  <view class="level-grid">
+    <view
+      wx:for="{{levels}}"
+      wx:key="id"
+      class="level-card {{item.status === 'locked' ? 'locked' : ''}} {{item.status === 'completed' ? 'completed' : ''}} {{item.status === 'current' ? 'current' : ''}}"
+      bindtap="onLevelTap"
+      data-id="{{item.id}}"
+    >
+      <!-- 未解锁 -->
+      <block wx:if="{{item.status === 'locked'}}">
+        <view class="card-lock">🔒</view>
+        <text class="card-name">第{{item.id}}关</text>
+      </block>
+
+      <!-- 已通关 -->
+      <block wx:elif="{{item.status === 'completed'}}">
+        <text class="card-star">⭐</text>
+        <text class="card-name">{{item.name}}</text>
+        <text class="card-record">{{item.bestTimeStr}} | 错误{{item.bestErrors}}次</text>
+      </block>
+
+      <!-- 当前可玩 -->
+      <block wx:else>
+        <text class="card-num">{{item.id}}</text>
+        <text class="card-name">{{item.name}}</text>
+        <text class="card-hint">点击开始</text>
+      </block>
+    </view>
+  </view>
+</view>

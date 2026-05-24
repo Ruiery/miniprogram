@@ -1,0 +1,109 @@
+<view class="game-container" catchtouchmove="preventMove">
+  <!-- 顶部导航 -->
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="goBack">← 返回</view>
+    <text class="nav-title">{{level.name}}</text>
+    <view class="nav-retry" bindtap="retryLevel">🔄</view>
+  </view>
+
+  <!-- 面包屑 -->
+  <view class="breadcrumb">
+    {{level.chapter}} > 第{{level.page}}页 > {{level.name}}
+  </view>
+
+  <!-- 提示文字 -->
+  <view class="hint-text">选择正确的饰品</view>
+
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <timer
+      id="game-timer"
+      timeLimit="{{level.timeLimit}}"
+      bind:timeout="onTimeout"
+      bind:tick="onTimerTick"
+    />
+    <error-counter
+      errors="{{errors}}"
+      maxErrors="{{level.maxErrors}}"
+      bind:maxReached="onMaxErrors"
+    />
+  </view>
+
+  <!-- 游戏主区域：立绘 + 热区 -->
+  <view class="game-area" id="game-area">
+    <!-- 立绘背景 -->
+    <image
+      class="character-img"
+      src="{{level.characterImage}}"
+      mode="aspectFit"
+      style="width: {{level.characterWidth}}rpx; height: {{level.characterHeight}}rpx;"
+    />
+
+    <!-- 热区覆盖层 -->
+    <view class="zones-layer" style="width: {{level.characterWidth}}rpx; height: {{level.characterHeight}}rpx;">
+      <view
+        wx:for="{{zoneStates}}"
+        wx:key="id"
+        class="zone {{item.status === 'correct' ? 'zone-correct' : ''}} {{item.status === 'wrong' ? 'zone-wrong' : ''}} {{item.hover ? 'zone-hover' : ''}}"
+        style="left: {{zone.x}}%; top: {{zone.y}}%; width: {{zone.width}}%; height: {{zone.height}}%;"
+        data-zone-id="{{item.id}}"
+      >
+        <!-- 未填充时显示编号 -->
+        <block wx:if="{{item.status === 'empty'}}">
+          <text class="zone-number">{{item.id}}</text>
+        </block>
+        <!-- 已正确匹配显示饰品 -->
+        <block wx:elif="{{item.status === 'correct'}}">
+          <image
+            class="zone-accessory"
+            src="{{item.matchedItem.image}}"
+            mode="aspectFit"
+          />
+          <text class="zone-check">✓</text>
+        </block>
+      </view>
+    </view>
+
+    <!-- 拖拽中的幽灵元素 -->
+    <image
+      wx:if="{{draggingGhost.visible}}"
+      class="drag-ghost"
+      src="{{draggingGhost.image}}"
+      mode="aspectFit"
+      style="left: {{draggingGhost.x}}px; top: {{draggingGhost.y}}px; width: {{draggingGhost.size}}px; height: {{draggingGhost.size}}px; opacity: 0.9;"
+    />
+  </view>
+
+  <!-- 底部饰品栏 -->
+  <scroll-view class="accessory-bar" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="accessory-list">
+      <view
+        wx:for="{{accessories}}"
+        wx:key="id"
+        class="accessory-item {{item.used ? 'used' : ''}}"
+        style="background-image: url({{item.image}}); background-size: cover;"
+        data-item-id="{{item.id}}"
+        bindtouchstart="onDragStart"
+        bindtouchmove="onDragMove"
+        bindtouchend="onDragEnd"
+      >
+        <view wx:if="{{item.used}}" class="used-mask">已用</view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 结算弹窗 -->
+  <result-modal
+    visible="{{showResult}}"
+    status="{{resultStatus}}"
+    timeUsed="{{timeUsed}}"
+    errorsUsed="{{errors}}"
+    maxErrors="{{level.maxErrors}}"
+    levelName="{{level.name}}"
+    matchedCount="{{completedCount}}"
+    totalZones="{{zones.length}}"
+    bind:nextLevel="onNextLevel"
+    bind:retry="onRetry"
+    bind:back="goBack"
+  />
+</view>
